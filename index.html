@@ -1092,6 +1092,15 @@
       .e10 { top: 21%; left: 25%; }
       .e11 { bottom:12%; right: 24%; font-size: 34px; }
 
+      .sticky-section {
+        height: calc(100svh + 140px);
+      }
+
+      #intro {
+        min-height: calc(100svh + 140px);
+        padding-bottom: calc(140px + env(safe-area-inset-bottom));
+      }
+
       .intro-container {
         grid-template-columns: 1fr;
         grid-template-rows: auto auto;
