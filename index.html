@@ -1099,6 +1099,8 @@
       #intro {
         min-height: calc(100svh + 220px);
         padding-bottom: calc(220px + env(safe-area-inset-bottom));
+        padding-left: 24px;
+        padding-right: 24px;
       }
 
       .intro-container {
@@ -1117,7 +1119,7 @@
 
       .intro-bio {
         text-align: center;
-        font-size: clamp(18px, 5vw, 24px);
+        font-size: clamp(16px, 4.5vw, 22px);
       }
 
       #worlds {
@@ -1167,6 +1169,24 @@
 
       .half-cards-section {
         grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .intro-bio {
+        font-size: 18px;
+        line-height: 1.6;
+        text-align: center;
+        padding: 0 4px;
+      }
+
+      .intro-container {
+        padding: 0 24px;
+        gap: 32px;
+      }
+
+      #intro {
+        padding: clamp(100px, 15vw, 120px) 0 60px 0;
       }
     }
   </style>
