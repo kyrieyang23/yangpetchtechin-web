@@ -1739,11 +1739,11 @@ function initTextReveal() {
     textNodes.push(walker.currentNode);
   }
 
-  textNodes.forEach(node => {
+  (textNodes || []).forEach(node => {
     const fragment = document.createDocumentFragment();
-    const parts = node.textContent.split(/(\s+)/);
+    const parts = (node.textContent || '').split(/(\s+)/);
 
-    parts.forEach(part => {
+    (parts || []).forEach(part => {
       if (!part) return;
 
       if (/^\s+$/.test(part)) {
@@ -1760,9 +1760,9 @@ function initTextReveal() {
     node.replaceWith(fragment);
   });
 
-  const words = bio.querySelectorAll('.reveal-word');
+  const words = Array.from(bio.querySelectorAll('.reveal-word') || []);
 
-  words.forEach(word => {
+  (words || []).forEach(word => {
     word.style.color = '#CCCCCC';
     word.style.transition = 'color 0.4s ease';
     word.style.display = 'inline';
@@ -1778,7 +1778,7 @@ function initTextReveal() {
     );
     const revealedCount = Math.floor(progress * (words.length + 1));
 
-    words.forEach((word, index) => {
+    (words || []).forEach((word, index) => {
       if (index < revealedCount) {
         word.style.color = '#0A0A0A';
       } else {
@@ -1829,11 +1829,11 @@ initPhotoReveal();
    WORLDS REVEAL + STRIPS
 ============================================ */
 function initRevealUp() {
-  const elements = document.querySelectorAll('.reveal-up');
+  const elements = Array.from(document.querySelectorAll('.reveal-up') || []);
 
   const observer = new IntersectionObserver(
     entries => {
-      entries.forEach(entry => {
+      (entries || []).forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('revealed');
           observer.unobserve(entry.target);
@@ -1843,7 +1843,7 @@ function initRevealUp() {
     { threshold: 0.15 }
   );
 
-  elements.forEach(el => observer.observe(el));
+  (elements || []).forEach(el => observer.observe(el));
 }
 
 function initBrandStrip() {
@@ -1871,8 +1871,8 @@ function initVideoStrip() {
   const strip = document.getElementById('videoStrip');
   if (!strip) return;
 
-  const children = Array.from(strip.children);
-  children.forEach(child => {
+  const children = Array.from(strip.children || []);
+  (children || []).forEach(child => {
     const clone = child.cloneNode(true);
     strip.appendChild(clone);
   });
@@ -1950,7 +1950,8 @@ initVideoStrip();
   loop();
 
   /* Hover: ring grows + tint */
-  document.querySelectorAll('a, button').forEach(el => {
+  const hoverTargets = Array.from(document.querySelectorAll('a, button') || []);
+  (hoverTargets || []).forEach(el => {
     el.addEventListener('mouseenter', () => {
       ring.style.width      = '54px';
       ring.style.height     = '54px';
