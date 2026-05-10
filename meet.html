@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>want to know me? | Yang Petchtechin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #0A0A0A;
+      --muted: #888888;
+      --soft: #E0E0E0;
+      --accent: #FF5C2B;
+      --card: rgba(255, 255, 255, 0.82);
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+      transition: background 700ms var(--ease);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .back-link {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 14px;
+      border: 1px solid rgba(10, 10, 10, 0.08);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.74);
+      box-shadow: 0 16px 38px rgba(10, 10, 10, 0.06);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    .progress {
+      position: fixed;
+      top: 28px;
+      right: 24px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border: 1.5px solid var(--text);
+      border-radius: 50%;
+      opacity: 0.42;
+    }
+
+    .dot.active {
+      background: var(--text);
+      opacity: 1;
+    }
+
+    .opening {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 88px 22px 44px;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(255, 92, 43, 0.10), transparent 26%),
+        #FFFFFF;
+    }
+
+    .opening-card {
+      width: min(100%, 680px);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: riseIn 900ms var(--ease) forwards;
+    }
+
+    .opening h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(52px, 9vw, 86px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .opening-subtitle {
+      margin: 26px auto 0;
+      max-width: 510px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(24px, 5vw, 34px);
+      font-style: italic;
+      line-height: 1.45;
+    }
+
+    .opening-warning {
+      margin: 28px auto 0;
+      max-width: 480px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: #333333;
+    }
+
+    .opening-note {
+      margin: 22px auto 0;
+      max-width: 430px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .primary-button {
+      margin-top: 34px;
+      min-height: 52px;
+      padding: 0 28px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 18px 44px rgba(255, 92, 43, 0.24);
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 52px rgba(255, 92, 43, 0.28);
+    }
+
+    .game {
+      display: none;
+      min-height: 100svh;
+      padding: 88px 22px 42px;
+    }
+
+    .game.active {
+      display: grid;
+      place-items: center;
+    }
+
+    .vn-shell {
+      width: min(100%, 680px);
+      min-height: min(760px, calc(100svh - 130px));
+      display: grid;
+      grid-template-rows: minmax(180px, 0.72fr) auto auto;
+      gap: 22px;
+      padding: clamp(18px, 4vw, 34px);
+      border: 1px solid rgba(10, 10, 10, 0.06);
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: 0 28px 80px rgba(10, 10, 10, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .scene-art {
+      position: relative;
+      overflow: hidden;
+      min-height: 190px;
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 20% 22%, rgba(255, 92, 43, 0.18), transparent 22%),
+        radial-gradient(circle at 78% 64%, rgba(10, 10, 10, 0.07), transparent 26%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(250, 250, 250, 0.92));
+      transition: background 700ms var(--ease);
+    }
+
+    .scene-art::before,
+    .scene-art::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      opacity: 0.9;
+      filter: blur(0.2px);
+      transition: transform 700ms var(--ease), opacity 700ms var(--ease);
+    }
+
+    .scene-art::before {
+      width: 116px;
+      height: 116px;
+      left: 12%;
+      top: 22%;
+      border: 1px solid rgba(255, 92, 43, 0.26);
+    }
+
+    .scene-art::after {
+      width: 220px;
+      height: 220px;
+      right: -54px;
+      bottom: -84px;
+      background: rgba(255, 92, 43, 0.08);
+    }
+
+    .scene-art-inner {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .scene-label {
+      position: relative;
+      z-index: 1;
+      max-width: 360px;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(32px, 7vw, 54px);
+      line-height: 1;
+      text-align: center;
+      color: rgba(10, 10, 10, 0.92);
+      opacity: 0.9;
+    }
+
+    .scene-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 340ms var(--ease), transform 340ms var(--ease);
+    }
+
+    .scene-card.fading {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    .story-box {
+      min-height: 196px;
+      padding: 6px 2px;
+    }
+
+    .narrator-text {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      color: var(--text);
+    }
+
+    .line {
+      display: block;
+      min-height: 1.8em;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 420ms var(--ease), transform 420ms var(--ease);
+    }
+
+    .line.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dialogue-box {
+      padding: 4px 0 4px 20px;
+      border-left: 2px solid var(--accent);
+    }
+
+    .speaker {
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .speaker.friend {
+      color: var(--muted);
+    }
+
+    .dialogue-box.friend {
+      border-left-color: var(--muted);
+    }
+
+    .intro-name {
+      display: grid;
+      place-items: center;
+      min-height: 196px;
+      text-align: center;
+    }
+
+    .intro-name h2 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 9vw, 76px);
+      line-height: 1.03;
+      animation: nameReveal 1100ms var(--ease) both;
+    }
+
+    .intro-name p {
+      margin: 16px 0 0;
+      font-size: 11px;
+      font-style: italic;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      animation: riseIn 900ms 380ms var(--ease) both;
+    }
+
+    .choices {
+      display: grid;
+      gap: 12px;
+      min-height: 0;
+    }
+
+    .choice-button {
+      width: 100%;
+      min-height: 58px;
+      padding: 16px 24px;
+      border: 1.5px solid var(--soft);
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 300ms var(--ease), transform 300ms var(--ease), border-color 180ms ease, color 180ms ease;
+    }
+
+    .choice-button.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .choice-button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .continue-hint {
+      min-height: 18px;
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(10, 10, 10, 0.38);
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .continue-hint.visible {
+      opacity: 1;
+    }
+
+    .end-card {
+      display: grid;
+      gap: 20px;
+      align-content: center;
+      min-height: 270px;
+      text-align: center;
+    }
+
+    .end-card h2 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(42px, 8vw, 62px);
+      line-height: 1.05;
+    }
+
+    .vibe {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 26px;
+      line-height: 1.5;
+    }
+
+    .disabled-next {
+      justify-self: center;
+      min-height: 50px;
+      padding: 0 22px;
+      border: 1px solid var(--soft);
+      border-radius: 999px;
+      background: #F5F5F5;
+      color: #A0A0A0;
+      cursor: not-allowed;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .end-note {
+      margin: -8px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes riseIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes nameReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .back-link {
+        top: 16px;
+        left: 14px;
+        min-height: 36px;
+        padding: 0 12px;
+        font-size: 12px;
+      }
+
+      .progress {
+        top: 23px;
+        right: 16px;
+        gap: 7px;
+      }
+
+      .game {
+        padding: 72px 14px 28px;
+      }
+
+      .vn-shell {
+        min-height: calc(100svh - 100px);
+        border-radius: 22px;
+        grid-template-rows: minmax(150px, 0.52fr) auto auto;
+        gap: 18px;
+      }
+
+      .scene-art {
+        min-height: 150px;
+        border-radius: 18px;
+      }
+
+      .story-box {
+        min-height: 210px;
+      }
+
+      .narrator-text {
+        font-size: 21px;
+      }
+
+      .choice-button {
+        padding: 15px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="index.html" aria-label="กลับหน้าหลัก">← กลับหน้าหลัก</a>
+
+  <div class="progress" aria-label="Episode progress">
+    <span>Episode 1</span>
+    <i class="dot active"></i>
+    <i class="dot"></i>
+    <i class="dot"></i>
+    <i class="dot"></i>
+    <i class="dot"></i>
+  </div>
+
+  <main>
+    <section class="opening" id="opening">
+      <div class="opening-card">
+        <h1>Yang Simulation</h1>
+        <p class="opening-subtitle">การทดลองทางวิทยาศาสตร์ขั้นสูง<br>ที่จะช่วยให้คุณเข้าใจมนุษย์นาม<br>หยาง เพชรเตชินธ์ ในเชิงลึก</p>
+        <p class="opening-warning">⚠️ คำเตือน: อาจทำให้เกิดอาการใจสั่น<br>ผลข้างเคียงที่พบบ่อย: อยากรู้จักมากขึ้น</p>
+        <p class="opening-note">(จริงๆ แล้วนี่แค่เกมจีบหนุ่มธรรมดาแหละ<br>แต่ฟังดูเท่กว่าถ้าเรียกว่า simulation เฉยๆ)</p>
+        <button class="primary-button" id="startButton" type="button">เริ่มการทดลอง</button>
+      </div>
+    </section>
+
+    <section class="game" id="game" aria-live="polite">
+      <div class="vn-shell">
+        <div class="scene-art" id="sceneArt">
+          <div class="scene-art-inner">
+            <div class="scene-label" id="sceneLabel">Monday fitting</div>
+          </div>
+        </div>
+
+        <div class="scene-card" id="sceneCard">
+          <div class="story-box" id="storyBox"></div>
+          <div class="continue-hint" id="continueHint">tap to continue</div>
+        </div>
+
+        <div class="choices" id="choices"></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="application/json" id="scene-data">
+  {
+    "intro_1": {
+      "type": "narrator",
+      "background": "#FAFAFA",
+      "label": "Bangkok, Monday",
+      "text": "กรุงเทพฯ เช้าวันจันทร์\n\nห้อง fitting เล็กๆ ในสตูดิโอ\nแสงไฟสีขาว ทีม costume วุ่นวายอยู่รอบห้อง\n\nคุณมาถึงสถานที่พร้อมกับเพื่อน\nนั่งรอคิว fitting ด้วยกัน",
+      "next": "intro_2"
+    },
+    "intro_2": {
+      "type": "narrator",
+      "background": "#FCFBF8",
+      "label": "Across the room",
+      "text": "มุมขวาของห้อง\n\nมีคนนั่งอยู่คนเดียว\nก้มหน้าดูโทรศัพท์อยู่\n\nแต่ถ้าสังเกตดีๆ\nสายตาเขากำลังสแกนทุกคนในห้อง\nทีละคน อย่างเงียบๆ\n\nพอสายตาเจอกัน\nเขาเบือนกลับไปที่โทรศัพท์\nเร็วมาก",
+      "next": "intro_3"
+    },
+    "intro_3": {
+      "type": "narrator",
+      "background": "#FFF8F4",
+      "label": "Character unlocked",
+      "style": "character-intro",
+      "text": "หยาง เพชรเตชิน",
+      "subtitle": "character introduction",
+      "next": "intro_4"
+    },
+    "intro_4": {
+      "type": "narrator",
+      "background": "#FAFAFA",
+      "label": "A natural orbit",
+      "text": "สักพักหยางลุกขึ้น\n\nเดินไปทักทายคนนั้นคนนี้\nถามชื่อ ถามว่าเคยเล่นมาก่อนไหม\nรู้จักใครในกองบ้างไหม\n\nเขาเดินไปทั่วห้อง เป็นธรรมชาติมาก\n\nแต่คุณสังเกตว่า\nเส้นทางที่เขาเดิน\nวนมาแถวที่คุณนั่งอยู่\nบ่อยกว่าที่อื่น",
+      "next": "yang_approaches"
+    },
+    "yang_approaches": {
+      "type": "dialogue",
+      "background": "#FFFFFF",
+      "label": "First contact",
+      "speaker": "หยาง",
+      "text": "สวัสดีครับ\n\nชื่ออะไรเหรอครับ?\nเล่นซีรีส์มาก่อนไหม?\nรู้จักใครในกองบ้างไหม?",
+      "next": "choice_1"
+    },
+    "choice_1": {
+      "type": "choice",
+      "background": "#FFFFFF",
+      "label": "Your reply",
+      "text": "คุณจะตอบยังไง?",
+      "choices": [
+        {
+          "text": "ยิ้มแล้วแนะนำตัวเอง\nตอบทุกคำถามแล้วถามกลับ",
+          "points": 1,
+          "next": "choice_1a"
+        },
+        {
+          "text": "ตอบสั้นๆ สุภาพ\nแต่ไม่ได้ถามกลับ",
+          "points": 0,
+          "next": "choice_1b"
+        }
+      ]
+    },
+    "choice_1a": {
+      "type": "narrator",
+      "background": "#FFFDFB",
+      "label": "You answer",
+      "text": "คุณยิ้มแล้วแนะนำตัวเอง\nตอบทุกคำถาม\n\nแล้วก็ถามกลับ\n\"แล้วหยางล่ะ เคยทำมาก่อนไหม?\"",
+      "next": "yang_reply_1a"
+    },
+    "yang_reply_1a": {
+      "type": "dialogue",
+      "background": "#FFFFFF",
+      "label": "Yang answers",
+      "speaker": "หยาง",
+      "text": "หยางครับ\nเล่นมาสักพักแล้ว",
+      "next": "yang_sits_a"
+    },
+    "yang_sits_a": {
+      "type": "narrator",
+      "background": "#FAFAFA",
+      "label": "Closer",
+      "text": "เขาตอบสั้นๆ แต่ไม่ได้ปิดบัง\nแล้วก็คุยต่ออีกสักครู่\n\nก่อนที่จะนั่งลงข้างๆ\nเหมือนเป็นเรื่องธรรมดา",
+      "next": "yang_sits_both"
+    },
+    "choice_1b": {
+      "type": "narrator",
+      "background": "#F9F9F9",
+      "label": "A polite pause",
+      "text": "คุณตอบสั้นๆ สุภาพ\n\nหยางพยักหน้า รับรู้\nยิ้มสุภาพ\n\nแล้วก็นั่งลงข้างๆ\nไม่มีใครพูดอะไรต่อ",
+      "next": "yang_sits_both"
+    },
+    "yang_sits_both": {
+      "type": "narrator",
+      "background": "#FAFAFA",
+      "label": "Nearby",
+      "text": "หยางนั่งอยู่ตรงนั้นด้วย\nดูโทรศัพท์บ้าง มองไปรอบห้องบ้าง\n\nไม่มีเรื่องจะคุยต่อ\nแต่ก็ไม่ได้ลุกไปไหน\n\nคุณหันมาคุยกับเพื่อนแทน",
+      "next": "choice_2"
+    },
+    "choice_2": {
+      "type": "choice",
+      "background": "#FFFFFF",
+      "label": "Small talk",
+      "text": "คุณจะชวนเพื่อนคุยเรื่องอะไร?",
+      "choices": [
+        {
+          "text": "ดูดวงที่เพิ่งไปมา",
+          "points": 2,
+          "next": "path_doodwang"
+        },
+        {
+          "text": "ซีรีส์ที่เพิ่งดูจบเมื่อคืน",
+          "points": 1,
+          "next": "path_series"
+        },
+        {
+          "text": "ข่าวดาราดังล่าสุด",
+          "points": -1,
+          "next": "path_news"
+        },
+        {
+          "text": "แพลนหลังเลิกงานวันนี้",
+          "points": 0,
+          "next": "path_plan"
+        }
+      ]
+    },
+    "path_doodwang": {
+      "type": "narrator",
+      "background": "#FFF8F4",
+      "label": "Horoscope route",
+      "text": "คุณเล่าให้เพื่อนฟัง\nเรื่องที่เพิ่งไปดูดวงมา\nไปที่ไหน หมอบอกว่าอะไร\n\nเพื่อนฟังสนใจ ถามนู่นถามนี่\n\nโดยที่ไม่ทันสังเกตว่า\nหยางที่นั่งอยู่ข้างๆ\nเงียบลงแล้ว\n\nเขาไม่ได้ดูโทรศัพท์อีกต่อไป\nแค่นั่งฟัง",
+      "next": "friend_asks_doodwang"
+    },
+    "friend_asks_doodwang": {
+      "type": "dialogue",
+      "background": "#FFF8F4",
+      "label": "Friend notices",
+      "speaker": "เพื่อน",
+      "text": "หยางสนใจเรื่องดวงด้วยเหรอ?",
+      "next": "yang_doodwang"
+    },
+    "yang_doodwang": {
+      "type": "dialogue",
+      "background": "#FFF8F4",
+      "label": "Yang opens up",
+      "speaker": "หยาง",
+      "text": "สนใจครับ ไปดูมาหลายที่แล้ว\n\nจริงๆ เราไม่ได้เชื่อเท่าไหร่\nแต่ก็ไม่ได้ไม่ชอบนะ\nตอนไปดูดวงมันก็รู้สึกสนุกดี",
+      "next": "yang_looks_doodwang"
+    },
+    "yang_looks_doodwang": {
+      "type": "narrator",
+      "background": "#FFF8F4",
+      "label": "A look",
+      "text": "แล้วเขาก็หันมามองคุณด้วย",
+      "next": "choice_3"
+    },
+    "path_series": {
+      "type": "narrator",
+      "background": "#FBFBFF",
+      "label": "Series route",
+      "text": "คุณถามเพื่อนว่าดูซีรีส์เรื่องนั้นจบยัง\n\nเพื่อนยังไม่จบ\nเลยเริ่มเถียงกันว่าตัวละครไหนดีกว่ากัน\n\nหยางที่นั่งอยู่ข้างๆ\nขยับตัวนิดนึง\nเหมือนกำลังจะพูดอะไร",
+      "next": "friend_asks_series"
+    },
+    "friend_asks_series": {
+      "type": "dialogue",
+      "background": "#FBFBFF",
+      "label": "Friend notices",
+      "speaker": "เพื่อน",
+      "text": "หยางดูเรื่องนี้ด้วยเหรอ?",
+      "next": "yang_series"
+    },
+    "yang_series": {
+      "type": "dialogue",
+      "background": "#FBFBFF",
+      "label": "Same show",
+      "speaker": "หยาง",
+      "text": "ดูอยู่เหมือนกัน\nแต่ยังไม่จบเลย",
+      "next": "yang_looks_series"
+    },
+    "yang_looks_series": {
+      "type": "narrator",
+      "background": "#FBFBFF",
+      "label": "A look",
+      "text": "แล้วเขาก็หันมามองคุณด้วย",
+      "next": "choice_3"
+    },
+    "path_news": {
+      "type": "narrator",
+      "background": "#F7F7F7",
+      "label": "News route",
+      "text": "คุณเล่าข่าวที่เพิ่งเห็นมา\nเรื่องดาราคนนึง\n\nเพื่อนฟัง แล้วก็เสริมต่อ\n\nหยางที่นั่งอยู่ข้างๆ\nยังคงดูโทรศัพท์อยู่เหมือนเดิม\n\nไม่ได้แสดงอะไรออกมา\nแค่... เงียบ",
+      "next": "ep1_end"
+    },
+    "path_plan": {
+      "type": "narrator",
+      "background": "#F9F9F9",
+      "label": "After work",
+      "text": "คุณถามเพื่อนว่าหลังเลิกงานจะไปไหน\n\nเพื่อนยังไม่แน่ใจ\nลองคิดตัวเลือกด้วยกัน\n\nหยางมองโทรศัพท์ต่อไป\nเรื่องนี้ไม่ได้ทำให้เขาหันมาสนใจ\nแต่อย่างใด",
+      "next": "ep1_end"
+    },
+    "choice_3": {
+      "type": "choice",
+      "background": "#FFFFFF",
+      "label": "Eye contact",
+      "text": "สายตาเขาเจอกับคุณ\nคุณจะทำอะไร?",
+      "choices": [
+        {
+          "text": "ชวนเขาเข้าร่วมวงเลย",
+          "points": 1,
+          "next": "choice_3a"
+        },
+        {
+          "text": "ยิ้มให้เขา แล้วรอดูว่าเขาจะทำอะไรต่อ",
+          "points": 0,
+          "next": "choice_3b"
+        }
+      ]
+    },
+    "choice_3a": {
+      "type": "narrator",
+      "background": "#FFFDFB",
+      "label": "Direct",
+      "text": "คุณถามเขาต่อทันที\n\nหยางดูแปลกใจนิดนึง\nที่คุณถามตรงๆ\n\nแต่ก็ตอบ และเล่าต่อ\n\nคุณสามคนคุยกันอีกสักพัก",
+      "next": "ep1_end"
+    },
+    "choice_3b": {
+      "type": "narrator",
+      "background": "#FFFDFB",
+      "label": "Wait and see",
+      "text": "คุณยิ้มให้เขา\n\nหยางยิ้มกลับ เล็กๆ\n\nแล้วก็ร่วมวงคุยเอง\nโดยที่คุณไม่ต้องชวน\n\nสายตาเขาแวบมาที่คุณ\nอีกสองสามครั้งระหว่างที่คุยอยู่",
+      "next": "ep1_end"
+    },
+    "ep1_end": {
+      "type": "narrator",
+      "background": "#FAFAFA",
+      "label": "Called away",
+      "text": "ไม่นานหลังจากนั้น\n\n\"คุณหยางครับ คิวถัดไปเลยนะครับ\"\n\nstaff เรียก\n\nหยางลุกขึ้น เก็บของ\n\nก่อนเดินไป\nเขาหันมามองคุณสักครู่\n\nไม่ได้พูดอะไร\nแค่... มอง\n\nแล้วก็เดินไป",
+      "next": "ep1_complete"
+    },
+    "ep1_complete": {
+      "type": "end",
+      "background": "#FFF8F4",
+      "label": "Episode complete",
+      "text": "จบ Episode 1\n\nวันถัดไป →",
+      "button": "Episode 2 — วันถ่ายทำแรก",
+      "note": "(coming soon — show as grayed out for now)"
+    }
+  }
+  </script>
+
+  <script>
+    const TYPE_SPEED = 30;
+    const scenes = JSON.parse(document.getElementById("scene-data").textContent);
+
+    const state = {
+      points: 0,
+      episode: 1,
+      scene: "intro_1",
+      choices: {}
+    };
+
+    const opening = document.getElementById("opening");
+    const game = document.getElementById("game");
+    const startButton = document.getElementById("startButton");
+    const sceneCard = document.getElementById("sceneCard");
+    const storyBox = document.getElementById("storyBox");
+    const choicesBox = document.getElementById("choices");
+    const continueHint = document.getElementById("continueHint");
+    const sceneArt = document.getElementById("sceneArt");
+    const sceneLabel = document.getElementById("sceneLabel");
+
+    let typing = false;
+    let finished = false;
+    let skipRequested = false;
+    let currentScene = null;
+    let typingTimer = null;
+
+    function sleep(ms) {
+      return new Promise(resolve => {
+        typingTimer = window.setTimeout(resolve, ms);
+      });
+    }
+
+    function clearTypingTimer() {
+      if (typingTimer) {
+        window.clearTimeout(typingTimer);
+        typingTimer = null;
+      }
+    }
+
+    function setMood(scene) {
+      const background = scene.background || "#FFFFFF";
+      document.body.style.background = background;
+      game.style.background = background;
+      sceneArt.style.background =
+        `radial-gradient(circle at 18% 22%, rgba(255, 92, 43, 0.18), transparent 22%),
+         radial-gradient(circle at 80% 68%, rgba(10, 10, 10, 0.07), transparent 28%),
+         linear-gradient(135deg, rgba(255, 255, 255, 0.55), ${background})`;
+      sceneLabel.textContent = scene.label || "Episode 1";
+    }
+
+    function speakerClass(speaker) {
+      return speaker === "เพื่อน" ? "friend" : "";
+    }
+
+    function getVibe(points) {
+      if (points >= 4) return "หยางสังเกตเห็นคุณแล้ว ✨";
+      if (points >= 2) return "วันแรกไม่เลว";
+      if (points >= 0) return "ยังมีเวลาอีกนะ...";
+      return "อืม... โชคดีที่ยังมี episode ต่อไป";
+    }
+
+    function fullTextIntoLines(container, text) {
+      container.innerHTML = "";
+      text.split("\n").forEach(line => {
+        const span = document.createElement("span");
+        span.className = "line visible";
+        span.textContent = line || "\u00A0";
+        container.appendChild(span);
+      });
+    }
+
+    async function typeLines(container, text) {
+      typing = true;
+      finished = false;
+      skipRequested = false;
+      container.innerHTML = "";
+      clearTypingTimer();
+
+      const lines = text.split("\n");
+      for (const line of lines) {
+        const span = document.createElement("span");
+        span.className = "line";
+        container.appendChild(span);
+        requestAnimationFrame(() => span.classList.add("visible"));
+
+        if (!line) {
+          span.textContent = "\u00A0";
+          await sleep(TYPE_SPEED);
+          if (skipRequested) break;
+          continue;
+        }
+
+        for (const char of line) {
+          if (skipRequested) break;
+          span.textContent += char;
+          await sleep(TYPE_SPEED);
+        }
+
+        if (skipRequested) break;
+      }
+
+      if (skipRequested) {
+        fullTextIntoLines(container, text);
+      }
+
+      typing = false;
+      finished = true;
+      skipRequested = false;
+      clearTypingTimer();
+    }
+
+    function showChoices(scene) {
+      choicesBox.innerHTML = "";
+      if (!scene.choices) return;
+
+      scene.choices.forEach((choice, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "choice-button";
+        button.textContent = choice.text;
+        button.addEventListener("click", event => {
+          event.stopPropagation();
+          state.points += choice.points || 0;
+          state.choices[state.scene] = choice.text;
+          goTo(choice.next);
+        });
+        choicesBox.appendChild(button);
+        window.setTimeout(() => button.classList.add("visible"), index * 100);
+      });
+    }
+
+    function renderCharacterIntro(scene) {
+      storyBox.innerHTML = `
+        <div class="intro-name">
+          <div>
+            <h2>${scene.text}</h2>
+            <p>${scene.subtitle || "character introduction"}</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderEnd(scene) {
+      storyBox.innerHTML = `
+        <div class="end-card">
+          <h2>${scene.text.replace(/\n/g, "<br>")}</h2>
+          <p class="vibe">${getVibe(state.points)}</p>
+          <button class="disabled-next" type="button" disabled>${scene.button}</button>
+          <p class="end-note">${scene.note}</p>
+        </div>
+      `;
+    }
+
+    async function renderScene(id) {
+      const scene = scenes[id];
+      if (!scene) return;
+
+      currentScene = scene;
+      state.scene = id;
+      finished = false;
+      skipRequested = false;
+      choicesBox.innerHTML = "";
+      continueHint.classList.remove("visible");
+      setMood(scene);
+
+      sceneCard.classList.add("fading");
+      await sleep(220);
+      sceneCard.classList.remove("fading");
+
+      if (scene.type === "end") {
+        renderEnd(scene);
+        finished = true;
+        return;
+      }
+
+      if (scene.style === "character-intro") {
+        renderCharacterIntro(scene);
+        await sleep(1150);
+        finished = true;
+      } else {
+        const wrapper = document.createElement("div");
+        if (scene.type === "dialogue") {
+          const className = speakerClass(scene.speaker);
+          wrapper.className = `dialogue-box ${className}`;
+          wrapper.innerHTML = `<div class="speaker ${className}">${scene.speaker}</div><div class="narrator-text"></div>`;
+        } else {
+          wrapper.className = "narrator-text";
+        }
+
+        storyBox.innerHTML = "";
+        storyBox.appendChild(wrapper);
+        const textTarget = scene.type === "dialogue" ? wrapper.querySelector(".narrator-text") : wrapper;
+        await typeLines(textTarget, scene.text);
+      }
+
+      if (scene.type === "choice") {
+        showChoices(scene);
+      } else if (scene.next) {
+        continueHint.classList.add("visible");
+      }
+    }
+
+    function goTo(id) {
+      clearTypingTimer();
+      renderScene(id);
+    }
+
+    function handleAdvance() {
+      if (!currentScene) return;
+
+      if (typing) {
+        skipRequested = true;
+        return;
+      }
+
+      if (!finished || currentScene.type === "choice" || currentScene.type === "end") return;
+      if (currentScene.next) goTo(currentScene.next);
+    }
+
+    startButton.addEventListener("click", () => {
+      opening.classList.add("hidden");
+      game.classList.add("active");
+      renderScene("intro_1");
+    });
+
+    game.addEventListener("click", handleAdvance);
+    window.MEET_GAME = { scenes, state, getVibe };
+  </script>
+</body>
+</html>
